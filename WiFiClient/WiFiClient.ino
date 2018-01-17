@@ -96,7 +96,7 @@ void loop() {
   int tele = analogRead(A0);
   int sensorValue1 = digitalRead(TouchPin1);
   int sensorValue2 = digitalRead(TouchPin2);
-  int boutton1Value1 = digitalRead(boutton1);
+  int boutton1Value = digitalRead(boutton1);
   int boutton2Value = digitalRead(boutton2);
 
   Serial.print("\t distance = ");
