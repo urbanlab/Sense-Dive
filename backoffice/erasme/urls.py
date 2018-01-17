@@ -20,4 +20,5 @@ from animation import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='index'),
+    url(r'^get_zip/(?P<name>\w+)/$', views.get_zip, name='get_zip'),
 ]

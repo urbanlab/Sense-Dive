@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Animation, Bus, GroupBus
+from .models import Animation, Bus, GroupBus, Binary, Media
 
 
 # Register your models here.
@@ -19,8 +19,8 @@ make_published.short_description = "Publier les animations séléctionnées"
 
 
 class AnimationAdmin(admin.ModelAdmin):
-    list_display = ['title', 'image_tag', 'status_tag']
-    readonly_fields = ['image_tag', 'status_tag']
+    list_display = ['title', 'status_tag']
+    readonly_fields = ['status_tag']
     ordering = ['pub_date']
     actions = [make_published]
     exclude = ['pub_date']
@@ -37,3 +37,13 @@ class GroupBusAdmin(admin.ModelAdmin):
     actions = [make_published]
 
 admin.site.register(GroupBus, GroupBusAdmin)
+
+
+class BinaryAdmin(admin.ModelAdmin):
+    list_display = ['name']
+admin.site.register(Binary, BinaryAdmin)
+
+class MediaAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(Media, MediaAdmin)
