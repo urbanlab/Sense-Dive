@@ -21,7 +21,9 @@ const char* password = "urbanLab";
   const unsigned int localPort = 1234; 
   const int TouchPin1 = 15;
   const int TouchPin2 = 16;
-  cosst int boutton1 = 13;
+  const int boutton1 = 13;
+  const int boutton2 = 14;
+  const int IP = 101;
 
 
   
@@ -41,6 +43,13 @@ void sendOSCBundle(IPAddress ip, int port, String path, float value) {
   bundle.send(Udp); // send the bytes to the SLIP stream
   Udp.endPacket(); // mark the end of the OSC Packet
   bundle.empty(); // empty the bundle to free room for a new one
+
+
+  bundle.add(path.c_str()).add(value);
+  Udp.beginPacket(ip, port + 1);
+  bundle.send(Udp); // send the bytes to the SLIP stream
+  Udp.endPacket(); // mark the end of the OSC Packet
+  bundle.empty();
 }
 
 
@@ -74,7 +83,7 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   Serial.println("try sending something");
-  sendOSCBundle(IPAddress(192,168,0,100), localPort, "/arduino/toto", 10);
+  sendOSCBundle(IPAddress(192,168,0,IP), localPort, "/arduino/toto", 10);
   Serial.println("ok");
   
 }
@@ -88,25 +97,31 @@ void loop() {
   int sensorValue1 = digitalRead(TouchPin1);
   int sensorValue2 = digitalRead(TouchPin2);
   int boutton1Value1 = digitalRead(boutton1);
+  int boutton2Value = digitalRead(boutton2);
 
   Serial.print("\t distance = ");
   Serial.println(tele);
-  sendOSCBundle(IPAddress(192,168,0,100), localPort, String("/arduino/telemetre"), float(tele));
+  sendOSCBundle(IPAddress(192,168,0,IP), localPort, String("/arduino/telemetre"), float(tele));
   if(sensorValue1 == 1)
   {
     Serial.println("poteau !");
-    sendOSCBundle(IPAddress(192,168,0,100), localPort, "/arduino/poteau", 1);
+    sendOSCBundle(IPAddress(192,168,0,IP), localPort, "/arduino/poteau", 1);
   }
   if(sensorValue2 == 1)
   {
     Serial.println("poteau 2!");
-    sendOSCBundle(IPAddress(192,168,0,100), localPort, "/arduino/poteau", 2);
+    sendOSCBundle(IPAddress(192,168,0,IP), localPort, "/arduino/poteau", 2);
   }
-  if (boutton1Value1)
+  if (boutton1Value)
   {
     Serial.println("Boutton 1");
-    sendOSCBundle(IPAddress(192,168,0,100), localPort, "/arduino/poteau", 3);
+    sendOSCBundle(IPAddress(192,168,0,IP), localPort, "/arduino/poteau", 3);
   }
-  delay(400);
+  if (boutton2Value)
+  {
+    Serial.println("Boutton 2");
+    sendOSCBundle(IPAddress(192,168,0,IP), localPort, "/arduino/poteau", 4);
+  }
+  delay(300);
 }
 
