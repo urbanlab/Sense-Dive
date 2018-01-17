@@ -35,13 +35,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="/admin">Administration</a>
             </li>
           </ul>
         </div>
@@ -53,8 +47,8 @@
 
       <!-- Jumbotron Header -->
       <header class="jumbotron my-4">
-        <h1 class="display-5">Administrer le backoffice</h1>
-        <a href="/admin" class="btn btn-primary btn-lg">Aller au panel d'administration</a>
+        <h1 class="display-5">Liste des animations</h1>
+        <a href="/admin" class="btn btn-primary btn-lg">Modifier les animations</a>
       </header>
 
       {% if user.is_authenticated %}
@@ -62,18 +56,24 @@
       <div class="row text-center">
         {% if animation_list %}
         {% for animation in animation_list %}
+        <a href="/get_zip/{{ animation }}">
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
-            <img class="card-img-top" src="{{animation.picture}}"alt="">
+            <!--<img class="card-img-top" src="{{animation.picture}}"alt="">-->
             <div class="card-body">
               <h4 class="card-title">{{animation}}</h4>
-              <p class="card-text">Activé</p>
+              <p class="card-text">
+                <p>Bus :</p>
+                {% for bus in bus_list %}
+                  {% if bus.group.animation == animation %}
+                    <strong><p>{{bus.ligne}}</p></strong>
+                  {% endif %}
+                {% endfor %}
+              </p>
             </div>
-            <!--<div class="card-footer">
-              <a href="#" class="btn btn-primary">Find Out More!</a>
-            </div>-->
           </div>
         </div>
+            </a>
         {% endfor %}
         {% endif %}
       </div>
@@ -90,7 +90,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        <p class="m-0 text-center text-white">Copyright &copy; WebApp - 2017</p>
       </div>
       <!-- /.container -->
     </footer>
