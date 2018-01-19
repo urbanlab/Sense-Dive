@@ -47,3 +47,4 @@ class MediaAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 admin.site.register(Media, MediaAdmin)
+

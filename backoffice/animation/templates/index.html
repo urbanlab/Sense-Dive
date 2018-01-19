@@ -52,14 +52,42 @@
       </header>
 
       {% if user.is_authenticated %}
+           <div class="row text-center">
+           {% if animation_list %}
+               {% for animation in animation_list %}
+                   <a href="/get_zip/{{ animation }}">
+               <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">{{ animation }}</h4>
+              <p class="card-text">
+              <p>Bus :</p>
+                  {% for bus in bus_list %}
+                  {% if bus.group.animation == animation %}
+                    <strong><p>{{bus.ligne}}</p></strong>
+                  {% endif %}
+                {% endfor %}
+              </p>
+            </div>
+            <div class="card-footer">
+              <a href="/admin/animation/animation/{{ animation.id }}/change/" class="btn btn-primary">Modifier {{ animation }}</a>
+            </div>
+          </div>
+        </div>
+                   </a>
+
+        {% endfor %}
+        {% endif %}
+           </div>
       <!-- Page Features -->
+          <!--
       <div class="row text-center">
         {% if animation_list %}
         {% for animation in animation_list %}
         <a href="/get_zip/{{ animation }}">
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
-            <!--<img class="card-img-top" src="{{animation.picture}}"alt="">-->
+            <img class="card-img-top" src="http://placehold.it/500x325" alt="">
             <div class="card-body">
               <h4 class="card-title">{{animation}}</h4>
               <p class="card-text">
@@ -77,6 +105,7 @@
         {% endfor %}
         {% endif %}
       </div>
+          -->
       {% else %}
       <div class="alert alert-danger" role="alert">
         Merci de vous connecter pour accéder à l'interface.

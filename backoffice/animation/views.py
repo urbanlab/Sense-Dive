@@ -3,8 +3,6 @@ import zipfile
 from io import BytesIO
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
-from django.template import loader
 from django.http import HttpResponse, Http404
 
 from .models import Animation, Bus
@@ -39,7 +37,6 @@ def get_zip(request, name):
     for fpath in tabs:
         fdir, fname = os.path.split(fpath)
         zip_path = os.path.join(zip_subdir, fname)
-        print(fpath)
         zf.write(fpath, zip_path)
 
     zf.close()

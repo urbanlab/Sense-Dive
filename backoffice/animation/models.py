@@ -1,11 +1,7 @@
-from django.db import models
 from datetime import datetime
 
 from django.db import models
-from django.conf import settings
 from django.utils.safestring import mark_safe
-from django.core.exceptions import ValidationError
-from django.core.validators import FileExtensionValidator
 
 # Create your models here.
 
