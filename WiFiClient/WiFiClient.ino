@@ -1,4 +1,3 @@
-
 /*
  *  This sketch sends data via HTTP GET requests to data.sparkfun.com service.
  *
@@ -14,39 +13,48 @@
 #include <OSCData.h>
 
 
-const char* ssid     = "urbanLab";
-const char* password = "urbanLab";
+const char* ssid     = "erasme-guests";
+const char* password = "guests@erasme";
 
-  WiFiUDP Udp;
-  const unsigned int localPort = 1234; 
-  const int TouchPin1 = 15;
-  const int TouchPin2 = 16;
-  cosst int boutton1 = 13;
+WiFiUDP Udp;
+const unsigned int localPort1 = 1234; 
+const unsigned int localPort2 = 1235; 
+const int TouchPin1 = 15;
+const int TouchPin2 = 16;
+const int boutton1 = 13;
+const int boutton2 = 2;
+const IPAddress adresse  = IPAddress(192, 168, 0, 101);
 
 
   
 // --------------------------------------------------------------------------------------
 //   Reading OSC Bundles on the network
 // --------------------------------------------------------------------------------------
-void sendOSCBundle(IPAddress ip, int port, String path, float value) {
+void sendOSCBundle(IPAddress ip, int port, String path, float value)
+{
   OSCBundle bundle;
 
-  //Serial.print("Sending OSC Bundle to ");
-  //Serial.print(" : " + path + "/");
-  //Serial.println(value);
 
-  //bundle.add("/position").add(value);
+
   bundle.add(path.c_str()).add(value);
   Udp.beginPacket(ip, port);
   bundle.send(Udp); // send the bytes to the SLIP stream
   Udp.endPacket(); // mark the end of the OSC Packet
   bundle.empty(); // empty the bundle to free room for a new one
+
+  Serial.println("Send to\t:");
+  Serial.print(ip);
+  Serial.print("\t");
+  Serial.print(path);
+  Serial.print("\t");
+  Serial.println(value);
 }
 
 
 
 // --------------------------------------------------------------------------------------
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   delay(10);
 
@@ -72,41 +80,52 @@ void setup() {
   Serial.println("WiFi connected");  
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-
+  Serial.println("MAC address: ");
+  Serial.println(WiFi.macAddress());
+  if (WiFi.localIP() == adresse)
+    Serial.println("J'envoie des infos à moi meme...");
   Serial.println("try sending something");
-  sendOSCBundle(IPAddress(192,168,0,100), localPort, "/arduino/toto", 10);
+  sendOSCBundle(adresse, localPort1, "/arduino/toto", 10);
   Serial.println("ok");
-  
+  Serial.println("Begin of the loop");
 }
 
 int value = 0;
 
 // --------------------------------------------------------------------------------------
-void loop() {
-
-  int tele = analogRead(A0);
+void loop() 
+{
+	int tele = analogRead(A0);
   int sensorValue1 = digitalRead(TouchPin1);
   int sensorValue2 = digitalRead(TouchPin2);
-  int boutton1Value1 = digitalRead(boutton1);
+  int boutton1Value = digitalRead(boutton1);
+  int boutton2Value = digitalRead(boutton2);
 
-  Serial.print("\t distance = ");
-  Serial.println(tele);
-  sendOSCBundle(IPAddress(192,168,0,100), localPort, String("/arduino/telemetre"), float(tele));
-  if(sensorValue1 == 1)
+  /*Serial.print("\t distance = ");
+  Serial.println(tele);*/
+
+  sendOSCBundle(adresse, localPort1, String("/arduino/telemetre"), float(tele));
+  sendOSCBundle(adresse, localPort2, String("/arduino/telemetre"), float(tele));
+  if(sensorValue1)
   {
-    Serial.println("poteau !");
-    sendOSCBundle(IPAddress(192,168,0,100), localPort, "/arduino/poteau", 1);
+    sendOSCBundle(adresse, localPort1, "/arduino/poteau", 1);
+		sendOSCBundle(adresse, localPort2, "/arduino/poteau", 1);
   }
-  if(sensorValue2 == 1)
+  if(sensorValue2)
   {
-    Serial.println("poteau 2!");
-    sendOSCBundle(IPAddress(192,168,0,100), localPort, "/arduino/poteau", 2);
+    sendOSCBundle(adresse, localPort1, "/arduino/poteau", 2);
+		sendOSCBundle(adresse, localPort2, "/arduino/poteau", 2);
   }
-  if (boutton1Value1)
+  if (boutton1Value)
   {
-    Serial.println("Boutton 1");
-    sendOSCBundle(IPAddress(192,168,0,100), localPort, "/arduino/poteau", 3);
+    sendOSCBundle(adresse, localPort1, "/arduino/poteau", 3);
+		sendOSCBundle(adresse, localPort2, "/arduino/poteau", 3);
   }
-  delay(400);
+  if (boutton2Value)
+  {
+    sendOSCBundle(adresse, localPort1, "/arduino/poteau", 4);
+		sendOSCBundle(adresse, localPort2, "/arduino/poteau", 4);
+  }
+  delay(300);
 }
 
