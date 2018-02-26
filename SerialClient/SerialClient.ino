@@ -78,5 +78,5 @@ void loop() {
   for (int i = 0; i < NB_BUTTONS; i++) {
     readButton(i);
   }
-  delay(300); // Debounce delay, and anti-flood
+  delay(50); // Debounce delay, and anti-flood
 }
