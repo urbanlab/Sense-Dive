@@ -1,6 +1,9 @@
-//#include <OSCMessage.h>
+/**********************************************************************************
+  Client qui gère quatres TouchButton avec leur quatre retours visuels 
+  de changements d'états.
+  Les bundles OSC sont envoyés via serial.
+ ***********************************************************************************/
 #include <OSCBundle.h>
-//#include <OSCData.h>
 
 #ifdef BOARD_HAS_USB_SERIAL
 #include <SLIPEncodedUSBSerial.h>
