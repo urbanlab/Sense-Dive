@@ -3,7 +3,7 @@
   de changements d'états.
   Les bundles OSC sont envoyés via serial.
  ***********************************************************************************/
-#define DEBOUNCE_DELAY 40 // Impose 25 Messages per Second, i.e. 25 FPS
+#define DEBOUNCE_DELAY 0 // Impose 25 Messages per Second, i.e. 25 FPS
 #define NB_BUTTONS 4
 #define TOUCHBUTTON1 5
 #define TOUCHBUTTON2 6
@@ -25,8 +25,8 @@ void readButton(int idx) {
     digitalWrite(leds[idx], LOW);
   } else {
     digitalWrite(leds[idx], HIGH);
-    Serial.print("/arduino/poteau/");
-    Serial.println(idx+1); // Sending 1,2,3,4 instead of 0,1,2,3
+    //Serial.print("/arduino/poteau/");
+    Serial.println(String(idx+1)); // Sending 1,2,3,4 instead of 0,1,2,3
   }
 }
 
