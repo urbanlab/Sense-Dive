@@ -3,16 +3,7 @@
   de changements d'états.
   Les bundles OSC sont envoyés via serial.
  ***********************************************************************************/
-#include <OSCBundle.h>
-
-#ifdef BOARD_HAS_USB_SERIAL
-#include <SLIPEncodedUSBSerial.h>
-SLIPEncodedUSBSerial SLIPSerial( thisBoardsSerialUSB );
-#else
-#include <SLIPEncodedSerial.h>
-SLIPEncodedSerial SLIPSerial(Serial);
-#endif
-
+#define DEBOUNCE_DELAY 40 // Impose 25 Messages per Second, i.e. 25 FPS
 #define NB_BUTTONS 4
 #define TOUCHBUTTON1 5
 #define TOUCHBUTTON2 6
@@ -27,24 +18,6 @@ int leds[] = {LED1, LED2, LED3, LED4};
 int buttons[] = {TOUCHBUTTON1, TOUCHBUTTON2, TOUCHBUTTON3, TOUCHBUTTON4};
 
 // --------------------------------------------------------------------------------------
-//   Sending OSC Bundles on the network
-// --------------------------------------------------------------------------------------
-void sendOSCBundle (String path, float value)
-{
-  OSCBundle bundle;
-
-  bundle.add(path.c_str()).add(value);
-
-  //start a new SLIP Packet
-  SLIPSerial.beginPacket();
-  //send the data
-  bundle.send(SLIPSerial);
-  //end the packet
-  SLIPSerial.endPacket();
-  bundle.empty(); // empty the bundle to free room for a new one
-}
-
-// --------------------------------------------------------------------------------------
 //   readButton : read button state
 // --------------------------------------------------------------------------------------
 void readButton(int idx) {
@@ -52,8 +25,8 @@ void readButton(int idx) {
     digitalWrite(leds[idx], LOW);
   } else {
     digitalWrite(leds[idx], HIGH);
-    // Send OSC bundle
-    sendOSCBundle("/arduino/poteau", idx);
+    Serial.print("/arduino/poteau/");
+    Serial.println(idx+1); // Sending 1,2,3,4 instead of 0,1,2,3
   }
 }
 
@@ -61,7 +34,7 @@ void readButton(int idx) {
 //   Setup Arduino
 // --------------------------------------------------------------------------------------
 void setup() {
-  SLIPSerial.begin(9600);
+  Serial.begin(9600);
   for (int i = 0; i < NB_BUTTONS; i++) {
     pinMode(buttons[i], INPUT_PULLUP);
     pinMode(leds[i], OUTPUT);
@@ -78,5 +51,5 @@ void loop() {
   for (int i = 0; i < NB_BUTTONS; i++) {
     readButton(i);
   }
-  delay(50); // Debounce delay, and anti-flood
+  delay(DEBOUNCE_DELAY); // Debounce delay, and anti-flood
 }
