@@ -34,17 +34,6 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 
-    //petit hack pour permettre le fullscreen sous ubuntu
-    /*
-    if(!bFullscreen){
-        float t = ofGetElapsedTimef();
-        if (t > 5) {
-            ofSetFullscreen(true);
-            bFullscreen = true;
-        }
-    }
-    */
-
     switch(globalState)
     {
         case 0:
