@@ -1,0 +1,38 @@
+<group>
+	<force>1</force>
+	<tempsDeVie>10</tempsDeVie>
+	<maxDistTelemetre>25</maxDistTelemetre>
+	<emulateWithMouse>0</emulateWithMouse>
+	<colors>
+		<color>50, 240, 50, 100</color>
+	<colorBG>136, 215, 248, 255</colorBG>
+		<colorAttractionPts>50, 240, 50, 255</colorAttractionPts>
+	</colors>
+	<center>0, 0</center>
+<group/>
+<center1>1822.04, 898.163</center1>
+	<center2>1831.84, 104.694</center2>
+	<center3>235.102, 0</center3>
+	<center4>0, 0</center4>
+<center0>724.898, 958.776</center0>
+<box2dWorldLimit>
+		<xMin>0</xMin>
+		<xMax>1920</xMax>
+		<yMin>0</yMin>
+		<yMax>1080</yMax>
+	</box2dWorldLimit>
+<circlesRadius>76.84</circlesRadius>
+<pixelQty>2240</pixelQty>
+<videoSpeed>0.8</videoSpeed>
+<lineWidth>5.41</lineWidth>
+	<winnerBlinkTime>2</winnerBlinkTime>
+	<yLimit>118.8</yLimit>
+	<gravityForce>20</gravityForce>
+	<positionCirclesU>715.102, 154.286</positionCirclesU>
+	<positionCirclesD>1038.37, 881.633</positionCirclesD>
+	<positionCirclesR>1606.53, 473.878</positionCirclesR>
+	<positionCirclesL>68.5714, 545.51</positionCirclesL>
+<timePoteauActive>1</timePoteauActive>
+<xNewBallOrigin>1795.2</xNewBallOrigin>
+	<yNewBallOrigin>966.6</yNewBallOrigin>
+</group>
