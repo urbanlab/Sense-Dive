@@ -40,6 +40,7 @@ void pixels::scanMediasDir(string path)
 {
     ofDirectory dir;
     dir.listDir(path.c_str());
+    dir.sort();
     for(int i = 0; i < (int)dir.size(); i++){
         cout << "new media element : " << dir.getPath(i) << endl;
         imgPaths.push_back(dir.getPath(i));
