@@ -28,6 +28,8 @@ void ofApp::setup(){
     labyrinthMode.setup();
     
     globalState = 0;
+
+    drawGui = false;
     
 }
 
@@ -109,32 +111,35 @@ void ofApp::draw(){
     ofMultMatrix(mat);
     fbo.draw(0, 0);
     ofPopMatrix();
-    /*
-    switch(globalState)
-    {
-        case 0:
-        {
-            pixelsMode.gui.draw();
-            break;
-        }
-        case 1:
-        {
-            skyMode.gui.draw();
-            break;
-        }
-        case 2:
-        {
-            signaletiqMode.gui.draw();
-            break;
-        }
+    
 
-        case 3:
+    if(drawGui)
+    {
+        switch(globalState)
         {
-            labyrinthMode.gui.draw();
-            break;
-        }   
+            case 0:
+            {
+                pixelsMode.gui.draw();
+                break;
+            }
+            case 1:
+            {
+                skyMode.gui.draw();
+                break;
+            }
+            case 2:
+            {
+                signaletiqMode.gui.draw();
+                break;
+            }
+
+            case 3:
+            {
+                labyrinthMode.gui.draw();
+                break;
+            }   
+        }
     }
-    */
  
     //======================== draw quad warp ui.
     
@@ -172,6 +177,11 @@ void ofApp::keyPressed(int key){
     if(key=='W')
     {
         warper.reset();
+    }
+
+    if(key == ' ')
+    {
+        drawGui = !drawGui;
     }
 
     switch(globalState)

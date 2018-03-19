@@ -43,5 +43,7 @@ class ofApp : public ofBaseApp{
     ofPoint points[10];
 
 	bool bFullscreen;
+
+	bool drawGui;
 		
 };
