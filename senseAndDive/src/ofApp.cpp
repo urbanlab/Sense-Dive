@@ -142,18 +142,20 @@ void ofApp::draw(){
     }
  
     //======================== draw quad warp ui.
-    
-    ofSetColor(ofColor::magenta);
-    warper.drawQuadOutline();
-    
-    ofSetColor(ofColor::yellow);
-    warper.drawCorners();
-    
-    ofSetColor(ofColor::magenta);
-    warper.drawHighlightedCorner();
-    
-    ofSetColor(ofColor::red);
-    warper.drawSelectedCorner();
+    if(drawMapping)
+    {
+        ofSetColor(ofColor::magenta);
+        warper.drawQuadOutline();
+        
+        ofSetColor(ofColor::yellow);
+        warper.drawCorners();
+        
+        ofSetColor(ofColor::magenta);
+        warper.drawHighlightedCorner();
+        
+        ofSetColor(ofColor::red);
+        warper.drawSelectedCorner();
+    }
 
 }
 
@@ -173,8 +175,15 @@ void ofApp::keyPressed(int key){
     {
         warper.enableMouseControls();
         warper.enableKeyboardShortcuts();
+
+        drawMapping = true;
     }
     if(key=='W')
+    {
+        warper.save();
+    }
+
+    if(key =='R')
     {
         warper.reset();
     }
@@ -226,6 +235,8 @@ void ofApp::keyReleased(int key){
     {
         warper.disableMouseControls();
         warper.disableKeyboardShortcuts();
+
+        drawMapping = false;
     }
 
 }

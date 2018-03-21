@@ -45,5 +45,6 @@ class ofApp : public ofBaseApp{
 	bool bFullscreen;
 
 	bool drawGui;
+	bool drawMapping;
 		
 };
