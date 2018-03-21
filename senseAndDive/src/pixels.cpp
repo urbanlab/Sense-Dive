@@ -254,6 +254,7 @@ void pixels::setupParticlesAndImgs(int imgID)
     
     
     myImage.load(imgPaths[imgID].c_str());
+    myImage.mirror(0,1);
     myImage.resize(ofGetWidth(),ofGetHeight());
     
     
