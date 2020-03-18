@@ -46,14 +46,23 @@ Besoins techniques
 
 ## Mapping sur le PC d'affichage 
 Appuyer sur Shift+W (mode wrapping)
+
 Identifier sur quel écran on fait le mapping (un écran à la fois)
+
 Pour plus de précisions, sélectionner les ancres au clavier avec les touches 1 , 2 , 3 , 4 (pour retirer l'affichage du menu : Espace)
+
 Pour changer d'écran de travail : w
+
 Positionner les ancres aux bons endroits avec la souris
+
 Appuyer sur D (DEBUG), un contour rouge apparait
+
 Positionner les ancres au clavier avec les flèches
+
 Pour sauvegarder : Echap
+
 Pour sortir du mode Wrapping : Shift+W (ne pas sortir pour garder le mapping)
+
 Pour sortir du mode Debug : D
 
 ## TO DO 
