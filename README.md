@@ -67,6 +67,9 @@ Pour sortir du mode Debug : D
 
 ## TO DO 
 Améliorer / Imaginer de nouveaux scénarios (Certains sont injouables)
-remplacer la projection par un écran ou 2 (/!\ attention à la question de l'ossature)
+
+Remplacer la projection par un écran ou 2 (/!\ attention à la question de l'ossature)
+
 Refaire l'ossature pour supporter un écran
+
 Electronique : Faire en sorte que les poteaux en acier soient au même potentiel que l'Arduino. Donc, par exemple, utiliser la tresse des câbles RJ45 à connecter d'un côté aux tubes (en ayant enlevé la peinture isolante), de l'autre côté à un point de masse de l'Arduino. 
